@@ -16,11 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-# Импортируем reset_password_view из приложения app
 from app.views import reset_password_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # Добавляем путь для reset_password_view
     path('reset_password/', reset_password_view, name='reset-password'),
 ]
