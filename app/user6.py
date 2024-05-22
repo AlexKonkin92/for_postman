@@ -38,8 +38,8 @@ def send_email(recipient, password):
         server.login(sender, 'xsegyibpinputkgo')
         server.sendmail(sender, recipient, msg.as_string())
         
-def reset_password(email):
-    #email = "ya.alexgr4@yandex.ru"
+def reset_password():
+    email = "ya.alexgr4@yandex.ru"
     user_username, user_email = valid_user(email)
     new_password = generate_password()
     send_email(user_email, new_password)
