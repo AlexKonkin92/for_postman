@@ -8,7 +8,7 @@ def reset_password_view(request):
         if not email:
             return JsonResponse({'status': 'error', 'message': 'Email parameter is missing.'}, status=400)
         
-        success, message = reset_password(email)
+        success, message = reset_password()
         if success:
             return JsonResponse({'status': 'success', 'message': message})
         else:
