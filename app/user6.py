@@ -40,9 +40,10 @@ def send_email(recipient, password):
         
 def reset_password():
     email = "ya.alexgr4@yandex.ru"
-    user_username, user_email = valid_user(email)
+    user_username = "alex"
+    #user_username, user_email = valid_user(email)
     new_password = generate_password()
-    send_email(user_email, new_password)
+    send_email(email, new_password)
     api.Command.user_mod(user_username, userpassword=new_password)
     try:
         return True, "Пароль успешно изменен и отправлен на электронную почту."
