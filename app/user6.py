@@ -7,7 +7,7 @@ from  sendmail_project.ipa_api import bootstrap_ipa_api
 
 
 IPA_API = bootstrap_ipa_api()
-logging.warning(IPA_API._API__done)
+logging.warning(f'without func: {IPA_API._API__done}')
 
 def generate_password():
     return "new_password"
