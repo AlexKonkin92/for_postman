@@ -3,8 +3,9 @@
 import smtplib
 from email.mime.text import MIMEText
 from ipalib import api
+import logging 
 
-print(api._API__done)
+logging.warning(api._API__done)
 api.bootstrap(in_server=True)
 api.finalize()
 api.Backend.rpcclient.connect()
