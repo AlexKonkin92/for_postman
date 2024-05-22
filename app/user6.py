@@ -2,7 +2,12 @@
 
 import smtplib
 from email.mime.text import MIMEText
-from settings import IPA_API
+import logging 
+from  sendmail_project.ipa_api import bootstrap_ipa_api
+
+
+IPA_API = bootstrap_ipa_api()
+logging.warning(IPA_API._API__done)
 
 def generate_password():
     return "new_password"

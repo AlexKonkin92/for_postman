@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-from  ipa_api import bootstrap_ipa_api
-import logging 
+#from  ipa_api import bootstrap_ipa_api
+#import logging 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -82,10 +82,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
-IPA_API = bootstrap_ipa_api()
-logging.warning(IPA_API._API__done)
 
 
 # Password validation
