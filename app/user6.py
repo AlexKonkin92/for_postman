@@ -4,6 +4,7 @@ import smtplib
 from email.mime.text import MIMEText
 from ipalib import api
 
+print(api.__done)
 api.bootstrap(in_server=True)
 api.finalize()
 api.Backend.rpcclient.connect()
@@ -43,6 +44,10 @@ def reset_password():
     #user_username, user_email = valid_user(email)
     new_password = generate_password()
     send_email(email, new_password)
+    if not api.isdone('bootstrap'):
+        api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
+        api.finalize()
+        api.Backend.rpcclient.connect()
     api.Command.user_mod(user_username, userpassword=new_password)
     try:
         return True, "Пароль успешно изменен и отправлен на электронную почту."
