@@ -14,6 +14,9 @@ def generate_password():
 
 def valid_user(email):
     try:
+        api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
+        api.finalize()
+        api.Backend.rpcclient.connect()
         result = api.Command.user_find(mail=email)['result']
         if result:
             user_username = result[0]['uid'][0]
@@ -35,9 +38,6 @@ def send_email(recipient, password):
         server.sendmail(sender, recipient, msg.as_string())
         
 def reset_password(email):
-    api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
-    api.finalize()
-    api.Backend.rpcclient.connect()
     #email = "ya.alexgr4@yandex.ru"
     user_username, user_email = valid_user(email)
     new_password = generate_password()
