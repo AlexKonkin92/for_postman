@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-from ipalib import api as IPA_API
+from  ipa_api import bootstrap_ipa_api
+import logging 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,9 +84,8 @@ DATABASES = {
 }
 
 
-IPA_API.bootstrap(in_server=True)
-IPA_API.finalize()
-IPA_API.Backend.rpcclient.connect()
+IPA_API = bootstrap_ipa_api()
+logging.warning(IPA_API._API__done)
 
 
 # Password validation

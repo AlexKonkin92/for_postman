@@ -3,9 +3,6 @@
 import smtplib
 from email.mime.text import MIMEText
 from settings import IPA_API
-import logging 
-
-logging.warning(IPA_API._API__done)
 
 def generate_password():
     return "new_password"
