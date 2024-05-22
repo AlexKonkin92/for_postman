@@ -14,9 +14,10 @@ def generate_password():
 
 def valid_user(email):
     try:
-        api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
-        api.finalize()
-        api.Backend.rpcclient.connect()
+        if not api.isdone('bootstrap'):
+            api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
+            api.finalize()
+            api.Backend.rpcclient.connect()
         result = api.Command.user_find(mail=email)['result']
         if result:
             user_username = result[0]['uid'][0]
