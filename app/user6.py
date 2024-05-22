@@ -4,7 +4,6 @@ import smtplib
 from email.mime.text import MIMEText
 from ipalib import api
 
-api.finalize()
 api.Backend.rpcclient.connect()
 
 def generate_password():
