@@ -4,7 +4,10 @@ import smtplib
 from email.mime.text import MIMEText
 from ipalib import api
 
-
+if not api.isdone('bootstrap'):
+    api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
+    api.finalize()
+    api.Backend.rpcclient.connect()
 
 def generate_password():
     return "new_password"
