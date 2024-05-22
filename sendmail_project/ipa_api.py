@@ -7,7 +7,6 @@ initialization_lock = threading.Lock()
 def bootstrap_ipa_api():
     with initialization_lock:
         logging.warning(f'in func: {IPA_API._API__done}')
-        logging.warning(os.getpid())
         logging.warning(threading.current_thread())
         if 'finalize' in IPA_API._API__done:
             logging.warning('IPA API is already bootstrapped.')
