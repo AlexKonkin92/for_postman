@@ -10,24 +10,31 @@ from ipalib import api #
 logging.basicConfig(level=logging.WARNING)
 logging.warning(f"before initialization_lock: {threading.current_thread()}")
 initialization_lock = threading.Lock() #
-initialization_lock.acquire()
-logging.warning(f"after initialization_lock and acquire: {threading.current_thread()}")
+is_initialized = False
+logging.warning(f"after initialization_lock: {threading.current_thread()}")
 
-try:
-    if 'finalize' in api._API__done:
-        logging.warning('IPA API is already bootstrapped.')
-    else:
-        logging.warning(threading.current_thread())
-        logging.warning('Bootstrapping IPA API.')
-        api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works', in_server=True)
-        api.finalize()
-        if api.env.in_server:
-            api.Backend.ldap2.connect()
+def initialize_api():
+    global is_initialized
+    with initialization_lock:
+        if not is_initialized:
+            logging.warning(threading.current_thread())
+            logging.warning('Bootstrapping IPA API.')
+            api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works', in_server=True)
+            api.finalize()
+            if api.env.in_server:
+                api.Backend.ldap2.connect()
+            else:
+                api.Backend.rpcclient.connect()
+            is_initialized = True
         else:
-            api.Backend.rpcclient.connect()
-finally:
-    # Освобождаем блокировку после инициализации
-    initialization_lock.release()
+            logging.warning(threading.current_thread())
+            logging.warning('IPA API is already bootstrapped.')
+
+# Инициализация API в MainThread
+logging.warning(f"MainThread before initialization: {threading.current_thread()}")
+initialize_api()
+logging.warning(f"MainThread after initialization: {threading.current_thread()}")
+
 
 # with initialization_lock:
 #     if 'finalize' in api._API__done:
@@ -41,7 +48,7 @@ finally:
 #             api.Backend.ldap2.connect()
 #         else:
 #             api.Backend.rpcclient.connect()
-logging.warning(f"after with try: {threading.current_thread()}")
+# logging.warning(f"after with initialization_lock: {threading.current_thread()}")
 #IPA_API = bootstrap_ipa_api()
 #logging.warning(f'without func: {IPA_API._API__done}')
 
