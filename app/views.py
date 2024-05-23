@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from .user6 import reset_password
 import logging
+import threading 
 
 def reset_password_view(request):
 
@@ -13,6 +14,7 @@ def reset_password_view(request):
         success = True
         message = "test"
         logging.warning("Test")
+        logging.warning(threading.current_thread())
         if success:
             return JsonResponse({'status': 'success', 'message': message})
         else:
