@@ -49,6 +49,8 @@ def reset_password():
     send_email(email, new_password)
     api.Command.user_mod(user_username, userpassword=new_password)
     try:
+        logging.warning('password sent.')
         return True, "Пароль успешно изменен и отправлен на электронную почту."
     except Exception as e:
+        logging.warning('error sending password.')
         return False, str(e)
