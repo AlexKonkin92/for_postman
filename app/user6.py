@@ -7,7 +7,7 @@ import threading #
 from ipalib import api #
 #from  sendmail_project.ipa_api import bootstrap_ipa_api
 
-api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
+api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works' , in_server=True)
 api.finalize()
 api.Backend.rpcclient.connect()
 
