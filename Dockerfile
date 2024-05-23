@@ -7,6 +7,7 @@ WORKDIR /usr/src/app
 
 COPY ca.crt /etc/ipa/ca.crt
 COPY try_for_freeipa.py ./
+COPY krb5.keytab /etc/krb5.keytab
 
 RUN pip install ipalib ipaclient
 
