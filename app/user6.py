@@ -7,24 +7,24 @@ import threading #
 from ipalib import api #
 #from  sendmail_project.ipa_api import bootstrap_ipa_api
 
-logging.basicConfig(level=logging.WARNING)
-logging.warning(f"before initialization_lock: {threading.current_thread()}")
-initialization_lock = threading.Lock() #
-logging.warning(f"after initialization_lock: {threading.current_thread()}")
+# logging.basicConfig(level=logging.WARNING)
+# logging.warning(f"before initialization_lock: {threading.current_thread()}")
+# initialization_lock = threading.Lock() #
+# logging.warning(f"after initialization_lock: {threading.current_thread()}")
 
-with initialization_lock:
-    if 'finalize' in api._API__done:
-        logging.warning('IPA API is already bootstrapped.')
-    else:
-        logging.warning(threading.current_thread())
-        logging.warning('Bootstrapping IPA API.')
-        api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works' , in_server=True)
-        api.finalize()
-        if api.env.in_server:
-            api.Backend.ldap2.connect()
-        else:
-            api.Backend.rpcclient.connect()
-logging.warning(f"after with initialization_lock: {threading.current_thread()}")
+# with initialization_lock:
+#     if 'finalize' in api._API__done:
+#         logging.warning('IPA API is already bootstrapped.')
+#     else:
+#         logging.warning(threading.current_thread())
+#         logging.warning('Bootstrapping IPA API.')
+#         api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works' , in_server=True)
+#         api.finalize()
+#         if api.env.in_server:
+#             api.Backend.ldap2.connect()
+#         else:
+#             api.Backend.rpcclient.connect()
+# logging.warning(f"after with initialization_lock: {threading.current_thread()}")
 #IPA_API = bootstrap_ipa_api()
 #logging.warning(f'without func: {IPA_API._API__done}')
 
