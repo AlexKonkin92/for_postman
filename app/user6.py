@@ -18,7 +18,10 @@ with initialization_lock:
         logging.warning('Bootstrapping IPA API.')
         api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works' , in_server=True)
         api.finalize()
-        api.Backend.rpcclient.connect()
+        if api.env.in_server:
+            api.Backend.ldap2.connect()
+        else:
+            api.Backend.rpcclient.connect()
 #IPA_API = bootstrap_ipa_api()
 #logging.warning(f'without func: {IPA_API._API__done}')
 
