@@ -16,7 +16,7 @@ with initialization_lock:
         logging.warning('IPA API is already bootstrapped.')
     else:
         logging.warning('Bootstrapping IPA API.')
-        api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
+        api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works' , in_server=True)
         api.finalize()
         api.Backend.rpcclient.connect()
 #IPA_API = bootstrap_ipa_api()
