@@ -9,8 +9,8 @@ COPY ca.crt /etc/ipa/ca.crt
 COPY try_for_freeipa.py ./
 COPY krb5.keytab /etc/krb5.keytab
 
-ENV KRB5_CLIENT_KTNAME=/etc/krb5.keytab
-ENV KRB5CCNAME=FILE:/tmp/krb5cc_0
+#ENV KRB5_CLIENT_KTNAME=/etc/krb5.keytab
+#ENV KRB5CCNAME=FILE:/tmp/krb5cc_0
 
 RUN pip install ipalib ipaclient
 
