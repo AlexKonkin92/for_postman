@@ -17,5 +17,6 @@ RUN pip install ipalib ipaclient
 #COPY requirements.txt ./
 
 #RUN pip install -r requirements.txt
-CMD kinit admin@KS.WORKS -k -t /etc/krb5.keytab && python ./try_for_freeipa.py
+#CMD kinit admin@KS.WORKS -k -t /etc/krb5.keytab && python ./try_for_freeipa.py
+CMD kinit host/freeipa-dev.ks.works@KS.WORKS -k -t /etc/krb5.keytab && python ./try_for_freeipa.py
 #CMD ["python", "./try_for_freeipa.py"]
