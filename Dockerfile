@@ -25,3 +25,6 @@ CMD kinit host/freeipa-dev.ks.works@KS.WORKS -k -t /etc/krb5.keytab && python ./
 
 
 
+
+
+
