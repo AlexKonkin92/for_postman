@@ -6,7 +6,7 @@ from sendmail_project.ipa_api import bootstrap_ipa_api
 
 def reset_password_view(request):
 
-    if request.method == 'GET':
+    if request.method == 'POST':
         email = request.GET.get('email')
         if not email:
             return JsonResponse({'status': 'error', 'message': 'Email parameter is missing.'}, status=400)
