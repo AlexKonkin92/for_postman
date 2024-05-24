@@ -21,7 +21,7 @@ services:
   python-script:
     build: .
     container_name: python_script_runner
-    user: 'root'
+    user: 'admin'
     volumes:
       - /opt/freeipa/data/etc/krb5.conf:/etc/krb5.conf
       - /opt/freeipa/data/etc/krb5.keytab:/etc/krb5.keytab
