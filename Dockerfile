@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y gcc libkrb5-dev libldap2-dev libsasl2-d
 
 WORKDIR /usr/src/app
 
-COPY ca.crt /etc/ipa/ca.crt
+#COPY ca.crt /etc/ipa/ca.crt
 COPY try_for_freeipa.py ./
 #COPY krb5.keytab /etc/krb5.keytab
 #COPY krb5.conf /etc/krb5.conf
