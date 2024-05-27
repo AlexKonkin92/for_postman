@@ -1,4 +1,4 @@
-from ipalib import api, create_api
+from ipalib import create_api
 from ipalib.rpc import jsonclient
 
 # Создание нового экземпляра API
@@ -36,18 +36,13 @@ try:
 except Exception as e:
     print(f"Ошибка подключения RPC клиента: {e}")
 
-# Проверка доступных команд
+# Проверка конфигурации окружения и домена
 try:
-    # Проверяем доступные команды
-    available_commands = api.Command.keys()
-    print(f"Доступные команды: {list(available_commands)}")
+    env = api.Command['env']()
+    print(f"Конфигурация окружения: {env}")
 
-    # Попытка вызова другой команды, например, 'env'
-    if 'env' in available_commands:
-        result = api.Command['env']()
-        print(f"Результат выполнения команды 'env': {result}")
-    else:
-        print("Команда 'env' недоступна")
+    domain = api.Command['whoami']()
+    print(f"Информация о домене: {domain}")
 
 except KeyError as e:
     print(f"Команда не найдена: {e}")
