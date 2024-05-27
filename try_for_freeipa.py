@@ -9,17 +9,50 @@ from email.mime.text import MIMEText
 # api.finalize()
 # api.Backend.rpcclient.connect()
 
-from ipalib import Command, create_api, rpc
+#from ipalib import create_api, rpc
 
 
-api = create_api(mode=None)
+# api = create_api(mode=None)
+# api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
+# client = rpc.jsonclient(api)
+# client.finalize()
+# client.connect()
+
+from ipalib import Command, create_api, rpc, parameters, output
+
+# Определяем кастомную команду как пример
+class my_command(Command):
+    __doc__ = 'Example command'
+
+    takes_params = (
+        parameters.Str('example_param', cli_name='example_param', label='Example Param'),
+    )
+
+    @classmethod
+    def get_options(cls):
+        options = super(my_command, cls).get_options()
+        options += (
+            parameters.Flag('example_flag', label='Example flag', doc='Example flag documentation'),
+        )
+        return options
+
+    has_output = output.Output('Return', label='Output')
+
+
+# Создаем новый экземпляр API
+api = create_api()
+
+# Регистрация кастомных команд
+api.add_plugin(my_command)
+
+# Инициализация API
 api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
+api.finalize()
+
+# Подключение API через RPC клиент
 client = rpc.jsonclient(api)
 client.finalize()
 client.connect()
-#api.finalize()
-#api.Backend.rpcclient.connect()
-
 
 
 def generate_password():
