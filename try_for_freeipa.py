@@ -9,12 +9,15 @@ from email.mime.text import MIMEText
 # api.finalize()
 # api.Backend.rpcclient.connect()
 
-from ipalib import create_api
+from ipalib import create_api, rpc
 
-api = create_api('ipa')
+
+api = create_api(mode=None)
 api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
-api.finalize()
-api.Backend.ldap2.connect()
+client = rpc.jsonclient(api)
+client.finalize()
+client.connect()
+#api.finalize()
 #api.Backend.rpcclient.connect()
 
 
