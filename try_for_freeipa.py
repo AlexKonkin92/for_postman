@@ -1,4 +1,4 @@
-from ipalib import create_api
+from ipalib import api, create_api
 from ipalib.rpc import jsonclient
 
 # Создание нового экземпляра API
@@ -12,9 +12,13 @@ try:
     api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
     print("Bootstrap завершен")
     
+    # Принудительная регистрация всех плагинов
+    api.load_plugins()
+    print("Плагины загружены")
+    
     api.finalize()
     print("Finalize завершен")
-    
+
 except Exception as e:
     print(f"Ошибка инициализации API: {e}")
 
@@ -37,10 +41,13 @@ try:
     # Проверяем доступные команды
     available_commands = api.Command.keys()
     print(f"Доступные команды: {list(available_commands)}")
-    
+
     # Попытка вызова другой команды, например, 'env'
-    result = api.Command['env']()
-    print(f"Результат выполнения команды 'env': {result}")
+    if 'env' in available_commands:
+        result = api.Command['env']()
+        print(f"Результат выполнения команды 'env': {result}")
+    else:
+        print("Команда 'env' недоступна")
 
 except KeyError as e:
     print(f"Команда не найдена: {e}")
