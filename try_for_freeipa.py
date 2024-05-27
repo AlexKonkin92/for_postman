@@ -2,6 +2,7 @@
 
 import smtplib
 from email.mime.text import MIMEText
+import logging
 
 # from ipalib import api
 
@@ -57,7 +58,7 @@ def generate_password():
 def valid_user(email):
     try:
         result1 = api.Command.user_find(mail=email)
-        print(f"Результат поиска: {result1}")
+        logging.warning(f"Результат поиска: {result1}")
         result = api.Command.user_find(mail=email)['result']
         if result:
             user_username = result[0]['uid'][0]
