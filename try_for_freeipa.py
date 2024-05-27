@@ -4,16 +4,35 @@ from ipalib.rpc import jsonclient
 # Создание нового экземпляра API
 api = create_api()
 
-# Инициализация API
-api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
-api.finalize()
+# Логирование инициализации API
+print("Инициализация API")
+
+try:
+    # Инициализация API
+    api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
+    print("Bootstrap завершен")
+    
+    api.finalize()
+    print("Finalize завершен")
+    
+except Exception as e:
+    print(f"Ошибка инициализации API: {e}")
 
 # Подключение API через RPC клиент
-client = jsonclient(api)
-client.finalize()
-client.connect()
+print("Подключение к RPC клиенту")
 
-# Пробный вызов команды user_find
+try:
+    client = jsonclient(api)
+    client.finalize()
+    print("RPC клиент финализирован")
+    
+    client.connect()
+    print("RPC клиент подключен")
+
+except Exception as e:
+    print(f"Ошибка подключения RPC клиента: {e}")
+
+# Проверка доступных команд
 try:
     # Проверяем доступные команды
     available_commands = api.Command.keys()
