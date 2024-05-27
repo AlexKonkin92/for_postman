@@ -18,38 +18,36 @@ from email.mime.text import MIMEText
 # client.finalize()
 # client.connect()
 
-from ipalib import Command, create_api, rpc, parameters, output
+from ipalib import Command, create_api, rpc, parameters, Str, Flag
+from ipalib.plugable import Registry
+from ipalib.frontend import Local
+
 
 # Определяем кастомную команду как пример
 class my_command(Command):
     __doc__ = 'Example command'
 
     takes_params = (
-        parameters.Str('example_param', cli_name='example_param', label='Example Param'),
+        Str('example_param', cli_name='example_param', label='Example Param'),
     )
 
-    @classmethod
-    def get_options(cls):
-        options = super(my_command, cls).get_options()
-        options += (
-            parameters.Flag('example_flag', label='Example flag', doc='Example flag documentation'),
-        )
-        return options
+    has_output = (
+        Str('result', label='Result'),
+    )
 
-    has_output = output.Output('Return', label='Output')
+    def execute(self, *args, **kwargs):
+        return dict(result="Example result")
 
 
-# Создаем новый экземпляр API
-api = create_api()
+api = create_api(None)
+api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
 
 # Регистрация кастомных команд
-api.add_plugin(my_command)
+registry = Registry()
+registry.register(api, my_command)
 
-# Инициализация API
-api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
 api.finalize()
 
-# Подключение API через RPC клиент
 client = rpc.jsonclient(api)
 client.finalize()
 client.connect()
