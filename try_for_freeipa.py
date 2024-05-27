@@ -15,7 +15,7 @@ api = create_api('ipa')
 api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
 api.finalize()
 api.Backend.ldap2.connect()
-api.Backend.rpcclient.connect()
+#api.Backend.rpcclient.connect()
 
 
 
