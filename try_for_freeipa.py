@@ -18,13 +18,12 @@ from email.mime.text import MIMEText
 # client.finalize()
 # client.connect()
 
-from ipalib import create_api, rpc, output, Command, parameters
-from ipalib.parameters import Str
+from ipalib import create_api, rpc, Command, Str, output, parameters
 
 # Определение кастомной команды
 class my_command(Command):
     __doc__ = 'Example command'
-    
+
     takes_params = (
         Str('example_param', cli_name='example_param', label='Example Param'),
     )
@@ -39,10 +38,8 @@ class my_command(Command):
 # Создание нового экземпляра API
 api = create_api()
 
-# Добавление кастомной команды в api
-api.Command = {
-    'my_command': my_command
-}
+# Добавление кастомной команды перед bootstrap
+api.add_plugin(my_command)
 
 # Инициализация API
 api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
