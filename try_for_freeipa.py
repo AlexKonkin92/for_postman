@@ -17,12 +17,13 @@ client.connect()
 try:
     # Проверяем доступные команды
     available_commands = api.Command.keys()
-    print(f"Доступные команды: {available_commands}")
+    print(f"Доступные команды: {list(available_commands)}")
+    
+    # Попытка вызова другой команды, например, 'env'
+    result = api.Command['env']()
+    print(f"Результат выполнения команды 'env': {result}")
 
-    email = 'ya.alexgr4@yandex.ru'
-    result = api.Command['user_find'](mail=email)
-    print(f"Результат поиска: {result}")
 except KeyError as e:
-    print(f"Команда 'user_find' не найдена: {e}")
+    print(f"Команда не найдена: {e}")
 except Exception as e:
-    print(f"Ошибка выполнения команды 'user_find': {e}")
+    print(f"Ошибка выполнения команды: {e}")
