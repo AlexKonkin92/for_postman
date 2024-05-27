@@ -9,7 +9,7 @@ from email.mime.text import MIMEText
 # api.finalize()
 # api.Backend.rpcclient.connect()
 
-from ipalib import create_api, rpc
+from ipalib import Command, create_api, rpc
 
 
 api = create_api(mode=None)
