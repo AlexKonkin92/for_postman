@@ -56,6 +56,8 @@ def generate_password():
     
 def valid_user(email):
     try:
+        result1 = api.Command.user_find(mail=email)
+        print(f"Результат поиска: {result1}")
         result = api.Command.user_find(mail=email)['result']
         if result:
             user_username = result[0]['uid'][0]
