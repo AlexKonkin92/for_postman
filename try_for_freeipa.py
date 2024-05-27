@@ -19,35 +19,18 @@ import logging
 # client.finalize()
 # client.connect()
 
-from ipalib import create_api, rpc, Command, Str, output, parameters
-
-# Определение кастомной команды
-class my_command(Command):
-    __doc__ = 'Example command'
-
-    takes_params = (
-        Str('example_param', cli_name='example_param', label='Example Param'),
-    )
-
-    has_output = (
-        output.Output('result', None),
-    )
-
-    def execute(self, *args, **options):
-        return dict(result="Example result")
+from ipalib import create_api
+from ipalib.rpc import jsonclient
 
 # Создание нового экземпляра API
 api = create_api()
-
-# Добавление кастомной команды перед bootstrap
-api.add_plugin(my_command)
 
 # Инициализация API
 api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
 api.finalize()
 
 # Подключение API через RPC клиент
-client = rpc.jsonclient(api)
+client = jsonclient(api)
 client.finalize()
 client.connect()
 
@@ -57,7 +40,8 @@ def generate_password():
     
 def valid_user(email):
     try:
-        result1 = api.Command.user_find(mail=email)
+        #result1 = api.Command.user_find(mail=email)
+        result1 = api.Command['user_find'](mail=email)
         logging.warning(f"Результат поиска: {result1}")
         result = api.Command.user_find(mail=email)['result']
         if result:
