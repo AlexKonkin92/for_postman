@@ -24,13 +24,10 @@ try:
     print("команды:", available_commands)
 except AttributeError:
     print("нет команд.")
-try:
-    if 'user_show' in api.Command:
-        result = api.Command['user_show']()
-        user_show = api.Command.user_show('alex')['result']
-        print(user_show)
-        print(result)
-    else:
-        print("'user_show' не доступна.")
-except Exception as e:
-    print(f"An error occurred: {e}")
+if 'user_show' in api.Command:
+    result = api.Command['user_show']()
+    user_show = api.Command.user_show('alex')['result']
+    print(user_show)
+    print(result)
+else:
+    print("'user_show' не доступна.")
