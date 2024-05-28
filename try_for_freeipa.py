@@ -1,4 +1,4 @@
-from ipalib import create_api, output, rpc
+from ipalib import create_api, output
 #from ipaclient.plugins.user import user_show
 from ipalib import frontend
 
@@ -7,7 +7,6 @@ api = create_api(mode=None)
 
 # Пример: Определение пользовательской команды
 class user_show(frontend.Command):
-    __doc__ = 'Вывод информации о пользователе'
     takes_args = ('uid',)
     has_output = output.Output('result')
 api.add_plugin(user_show)
