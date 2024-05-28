@@ -2,10 +2,8 @@ from ipalib import create_api, output
 #from ipaclient.plugins.user import user_show
 from ipalib import frontend
 
-# Создаём новый экземпляр API
 api = create_api(mode=None)
 
-# Пример: Определение пользовательской команды
 class user_show(frontend.Command):
     takes_args = ('uid',)
     has_output = output.Output('result')
