@@ -1,13 +1,17 @@
-from ipalib import create_api
+from ipalib import create_api, rpc
 
-# Создание и инициализация API объекта
-api = create_api(mode=None)
+# Создание нового экземпляра API
+api = create_api()
+
+# Инициализация API
 api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
 api.finalize()
 
-# Подключение к серверу
-api.Backend.rpcclient.connect()
+# Подключение API через RPC клиент
+client = rpc.jsonclient(api)
+client.finalize()
+client.connect()
 
-# Выполнение команды
-result = api.Command.user_find()
+# Выполнение команды user_find
+result = api.Command['user_find']()
 print(result)
