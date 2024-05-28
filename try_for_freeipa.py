@@ -1,5 +1,7 @@
 from ipalib import create_api
-from ipalib import rpc
+from ipalib import errors
+from ipalib.backend import Executioner
+from ipalib.plugable import Registry
 
 # Создание API объекта
 api = create_api(mode=None)
@@ -7,17 +9,19 @@ api = create_api(mode=None)
 # Инициализация API
 api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
 
-# Загрузка плагинов
+# Загрузка плагинов и команд
 api.finalize()
 
 # Подключение к серверу
-client = rpc.jsonclient(api)
-client.finalize()
-client.connect()
+api.Backend.rpcclient.connect()
 
-# Загрузка команд
-api.Command = api.Command
+# Явная загрузка команд
+executioner = Executioner(api)
+api.Command = Registry(api, 'command', api.env.context)
 
 # Выполнение команды
-result = api.Command['user_find']()
-print(result)
+try:
+    result = api.Command['user_find']()
+    print(result)
+except errors.PublicError as e:
+    print(f"An error occurred: {e}")
