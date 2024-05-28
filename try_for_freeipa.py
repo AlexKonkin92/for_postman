@@ -7,11 +7,20 @@ api = create_api()
 api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
 api.finalize()
 
-# Подключение API через RPC клиент
+# Подключение к серверу через RPC клиент
 client = rpc.jsonclient(api)
 client.finalize()
 client.connect()
 
-# Выполнение команды user_find
-result = api.Command['user_find']()
-print(result)
+# Проверка загруженных плагинов
+print("Loaded plugins:", api._plugins.keys())
+
+# Проверка доступных команд
+print("Available commands:", api.Command.keys())
+
+# Выполнение команды user_find, если она доступна
+if 'user_find' in api.Command:
+    result = api.Command['user_find']()
+    print(result)
+else:
+    print("The command 'user_find' is not available in the current API context.")
