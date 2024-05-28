@@ -1,10 +1,10 @@
 from ipalib import create_api, rpc
-from ipaclient.plugins.user import user_show
+#from ipaclient.plugins.user import user_show
 
 
-api = create_api()
+api = create_api(mode=None)
 api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
-api.add_plugin(user_show)
+#api.add_plugin(user_show)
 
 #api.load_plugins
 
@@ -13,7 +13,15 @@ client = rpc.jsonclient(api)
 client.finalize()
 client.connect()
 
+try:
+    # Пример команды: получение информации о пользователе
+    user_info = api.Command.user_show(uid='admin')
+    print(f"Информация о пользователе: {user_info['result']}")
 
+    # Ваш код для работы с API
+
+except Exception as e:
+    print(f"Ошибка при выполнении команды: {e}")
 
 try:
     print("Loaded plugins:", api.env.loaded_plugins)
