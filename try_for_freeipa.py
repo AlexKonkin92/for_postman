@@ -8,8 +8,8 @@ api = create_api(mode=None)
 # Пример: Определение пользовательской команды
 class user_show(frontend.Command):
     __doc__ = 'Вывод информации о пользователе'
-    takes_args = ('uid', )
-    has_output = output.Output('result', label='Информация о пользователе')
+    takes_args = ('uid',)
+    has_output = output.Output('result')
 api.add_plugin(user_show)
 
 api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
@@ -25,8 +25,8 @@ client.connect()
 
 try:
     # Пример команды: получение информации о пользователе
-    user_info2 = client.forward('user_show', uid='admin')
-    print(f"Информация о пользователе: {user_info2}")
+    user_info = client.forward('user_show', uid='admin')
+    print(f"Информация о пользователе: {user_info}")
 
 except Exception as e:
     print(f"Ошибка при выполнении команды: {e}")
