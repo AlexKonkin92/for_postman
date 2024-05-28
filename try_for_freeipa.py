@@ -19,17 +19,26 @@ api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
 
 
 api.finalize()
-client = rpc.jsonclient(api)
-client.finalize()
-client.connect()
+#client = rpc.jsonclient(api)
+api.Backend.xmlclient.connect()
+#client.finalize()
+#client.connect()
 
 try:
-    # Пример команды: получение информации о пользователе
-    user_info = client.forward('user_show', uid='admin')
-    print(f"Информация о пользователе: {user_info}")
+    user_info = api.Command['user_show'](uid='admin')
+    print(f"Информация о пользователе: {user_info.result}")
+
+    # Ваш код для работы с API
 
 except Exception as e:
     print(f"Ошибка при выполнении команды: {e}")
+
+# try:
+#     user_info = client.forward('user_show', uid='admin')
+#     print(f"Информация о пользователе: {user_info}")
+
+# except Exception as e:
+#     print(f"Ошибка при выполнении команды: {e}")
 
 # try:
 #     print("Loaded plugins:", api.env.loaded_plugins)
