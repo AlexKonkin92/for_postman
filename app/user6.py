@@ -30,7 +30,7 @@ from ipalib import api #
 
 api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
 api.finalize()
-api.Backend.rpcclient.connect()
+#api.Backend.rpcclient.connect()
 
 def generate_password():
     return "new_password"
