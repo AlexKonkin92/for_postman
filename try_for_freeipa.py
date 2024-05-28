@@ -1,10 +1,16 @@
 from ipalib import create_api, rpc
 api = create_api()
 api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
+
+
+api.load_plugins
+
 api.finalize()
 client = rpc.jsonclient(api)
 client.finalize()
 client.connect()
+
+
 
 try:
     print("Loaded plugins:", api.env.loaded_plugins)
