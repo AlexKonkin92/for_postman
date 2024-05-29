@@ -2,7 +2,6 @@ from flask import Flask, request
 import smtplib
 from email.mime.text import MIMEText
 
-
 app = Flask(__name__)
 
 def generate_password():
