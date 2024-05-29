@@ -1,11 +1,25 @@
 from flask import Flask, request
 import smtplib
 from email.mime.text import MIMEText
+from ipalib import api
 
 app = Flask(__name__)
 
+api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
+api.finalize()
+api.Backend.rpcclient.connect()
+
 def generate_password():
     return "new_password"
+
+def valid_user(email):
+    try:
+        result = api.Command.user_find(mail=email)['result']
+        if result:
+            user_username = result[0]['uid'][0]
+            return user_username,email
+    except Exception as e:
+        print(f"Пользователь с почтой '{email}' не был найден. Ошибка {e}.")
 
 def send_email(recipient, password):
     sender = 'ya.alexgr4@yandex.ru'
@@ -27,13 +41,13 @@ def send_email(recipient, password):
 #     send_email(email, new_password)
 #     return f"Пароль отправлен на почту {email}"
 
-@app.route('/', methods=['GET'])   
-def reset_password():
-    email = request.args.get('email')
-    new_password = generate_password()
-    #print(f"Сгенерированный пароль: {new_password}")
-    send_email(email, new_password)
-    return f"Пароль отправлен на почту {email}"
+# @app.route('/', methods=['GET'])   
+# def reset_password():
+#     email = request.args.get('email')
+#     new_password = generate_password()
+#     #print(f"Сгенерированный пароль: {new_password}")
+#     send_email(email, new_password)
+#     return f"Пароль отправлен на почту {email}"
 
 # @app.route('/', methods=['POST'])   
 # def reset_password():
@@ -44,6 +58,16 @@ def reset_password():
 #     #print(f"Сгенерированный пароль: {new_password}")
 #     send_email(email, new_password)
 #     return f"Пароль отправлен на почту {email}"
+
+@app.route('/', methods=['GET'])   
+def reset_password():
+    email = request.args.get('email')
+    user_username, user_email = valid_user(email)
+    new_password = generate_password()
+    #print(f"Сгенерированный пароль: {new_password}")
+    send_email(email, new_password)
+    api.Command.user_mod(user_username, userpassword=new_password)
+    return f"Пароль отправлен на почту {email}"
 
         
 if __name__ == "__main__":
