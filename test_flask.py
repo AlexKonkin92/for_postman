@@ -59,7 +59,7 @@ def send_email(recipient, password):
 #     send_email(email, new_password)
 #     return f"Пароль отправлен на почту {email}"
 
-@app.route('/', methods=['GET'])   
+@app.route('/reset_email_password', methods=['GET'])   
 def reset_password():
     email = request.args.get('email')
     user_username, user_email = valid_user(email)
@@ -71,4 +71,4 @@ def reset_password():
 
         
 if __name__ == "__main__":
-    app.run(debug=True, port=5000, host='0.0.0.0')
+    app.run(debug=True)
