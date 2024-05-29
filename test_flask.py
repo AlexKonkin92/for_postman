@@ -69,6 +69,10 @@ def reset_password():
     api.Command.user_mod(user_username, userpassword=new_password)
     return f"Пароль отправлен на почту {email}"
 
+@app.route('/check')   
+def check():
+    return 'ok'
+
         
 if __name__ == "__main__":
     app.run(debug=True)
