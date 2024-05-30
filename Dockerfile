@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y gcc libkrb5-dev libldap2-dev libsasl2-d
 WORKDIR /usr/src/app
 
 #COPY ca.crt /etc/ipa/ca.crt
-COPY try_for_freeipa.py ./
+COPY test_flask.py ./
 #COPY krb5.keytab /etc/krb5.keytab
 #COPY krb5.conf /etc/krb5.conf
 
@@ -19,7 +19,8 @@ COPY requirements.txt ./
 
 RUN pip install -r requirements.txt
 
-CMD kinit -kt /etc/krb5.keytab admin@KS.WORKS && python ./try_for_freeipa.py
+CMD kinit -kt /etc/krb5.keytab admin@KS.WORKS && gunicorn --bind 0.0.0.0:8000 test_flask:app
+#CMD kinit -kt /etc/krb5.keytab admin@KS.WORKS && python ./try_for_freeipa.py
 #CMD kinit host/freeipa-dev.ks.works@KS.WORKS -k -t /etc/krb5.keytab && python ./try_for_freeipa.py
 #CMD kinit admin@KS.WORKS -k -t /etc/krb5.keytab && python ./try_for_freeipa.py
 #CMD ["python", "./try_for_freeipa.py"]

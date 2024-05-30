@@ -1,6 +1,7 @@
 asgiref
-Django
+Flask
 sqlparse
 tzdata
 ipalib
 ipaclient
+gunicorn

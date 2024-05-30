@@ -26,3 +26,5 @@ services:
       - /opt/freeipa/data/etc/krb5.conf:/etc/krb5.conf
       - /opt/freeipa/data/etc/krb5.keytab:/etc/krb5.keytab
       - /etc/ipa/ca.crt:/etc/ipa/ca.crt
+    ports:
+      - 8000:8000
