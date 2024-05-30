@@ -19,7 +19,8 @@ COPY requirements.txt ./
 
 RUN pip install -r requirements.txt
 
-CMD kinit -kt /etc/krb5.keytab admin@KS.WORKS && gunicorn --bind 0.0.0.0:8000 test_flask:app
+CMD kinit -kt /etc/krb5.keytab host/freeipa-dev.ks.works@KS.WORKS && gunicorn --bind 0.0.0.0:8000 test_flask:app
+#CMD kinit -kt /etc/krb5.keytab admin@KS.WORKS && gunicorn --bind 0.0.0.0:8000 test_flask:app
 #CMD kinit -kt /etc/krb5.keytab admin@KS.WORKS && python ./try_for_freeipa.py
 #CMD kinit host/freeipa-dev.ks.works@KS.WORKS -k -t /etc/krb5.keytab && python ./try_for_freeipa.py
 #CMD kinit admin@KS.WORKS -k -t /etc/krb5.keytab && python ./try_for_freeipa.py
