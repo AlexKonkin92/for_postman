@@ -25,6 +25,8 @@ CMD kinit -kt /etc/krb5.keytab -c admin@KS.WORKS && gunicorn --bind 0.0.0.0:8000
 #CMD kinit host/freeipa-dev.ks.works@KS.WORKS -k -t /etc/krb5.keytab && python ./try_for_freeipa.py
 #CMD kinit admin@KS.WORKS -k -t /etc/krb5.keytab && python ./try_for_freeipa.py
 #CMD ["python", "./try_for_freeipa.py"]
+RUN cat /etc/resolv.conf
+RUN nslookup freeipa-dev.ks.works
 
 
 
