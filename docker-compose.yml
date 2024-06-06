@@ -24,9 +24,7 @@ services:
     user: 'root'
     #hostname: freeipa-dev.ks.works
     volumes:
-      - /opt/freeipa/data:/data
-      #- /opt/freeipa/data/etc/krb5.conf:/etc/krb5.conf
-      #- /opt/freeipa/data/etc/krb5.keytab:/etc/krb5.keytab
+      #- /opt/freeipa/data:/data
       - /etc/ipa/ca.crt:/etc/ipa/ca.crt
     ports:
       - 8000:8000

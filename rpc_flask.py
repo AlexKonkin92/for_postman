@@ -2,14 +2,13 @@ import requests
 from flask import Flask, request
 import smtplib
 from email.mime.text import MIMEText
-from ipalib import api
 
 
 app = Flask(__name__)
 
-api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
-api.finalize()
-api.Backend.rpcclient.connect()
+# api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
+# api.finalize()
+# api.Backend.rpcclient.connect()
 
 def get_authenticated_session():
     session = requests.Session()
