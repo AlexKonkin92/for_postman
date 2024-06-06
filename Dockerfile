@@ -13,7 +13,8 @@ RUN pip install -r requirements.txt
 #CMD kinit -kt /data/etc/krb5.keytab joe@KS.WORKS -V && gunicorn --bind 0.0.0.0:8000 test_flask:app last
 #CMD kinit -kt /etc/krb5.keytab joe@KS.WORKS -V && gunicorn --bind 0.0.0.0:8000 test_flask:app last
 
-CMD gunicorn --bind 0.0.0.0:8000 rpc_flask:app
+#CMD gunicorn --bind 0.0.0.0:8000 rpc_flask:app last
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "test_flask:app"]
 
 
 
