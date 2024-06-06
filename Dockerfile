@@ -3,13 +3,13 @@ RUN apt-get update && apt-get install -y gcc libkrb5-dev libldap2-dev libsasl2-d
 
 WORKDIR /usr/src/app
 
-COPY test_flask.py ./
+COPY rpc_flask.py ./
 
 COPY requirements.txt ./
 
 RUN pip install -r requirements.txt
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "test_flask:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "rpc_flask:app"]
 
 
 
