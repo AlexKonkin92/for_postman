@@ -6,16 +6,12 @@ from email.mime.text import MIMEText
 
 app = Flask(__name__)
 
-# api.bootstrap(context='cli', domain='ks.works', server='freeipa-dev.ks.works')
-# api.finalize()
-# api.Backend.rpcclient.connect()
-
 def get_authenticated_session():
     session = requests.Session()
     headers = {
-        'referer': "https://freeipa-dev.ks.works/ipa/ui/",
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'referer': "https://freeipa-dev.ks.works/ipa/ui/"
     }
+    session.headers.update(headers)
     data = {
         'user': 'admin',
         'password': 'Secret123'
@@ -46,8 +42,8 @@ def valid_user(email):
         }
         json_rpc_url = 'https://freeipa-dev.ks.works/ipa/json'
         response = session.post(json_rpc_url, json=user_find_payload, headers=session.headers, verify=False)
-        if response.json()['result']:
-            user_username = response.json()['result'][0]['uid'][0]
+        if response.json()['result']['result']:
+            user_username = response.json()['result']['result'][0]['uid'][0]
             return user_username
         else:
             print(f"Пользователь с почтой '{email}' не был найден.")
