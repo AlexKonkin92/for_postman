@@ -56,7 +56,7 @@ def send_email(recipient, password):
     message = f"Временный пароль: {password}" 
     msg = MIMEText(message)
     
-    msg['Subject'] = 'Временный пароль для FreeIPA' #название сообщения
+    msg['Subject'] = 'Временный пароль для FreeIPA'
     msg['From'] = sender
     msg['To'] = recipient
 
@@ -78,7 +78,7 @@ def reset_password():
     user_mod_payload = {
     "method": "user_mod",
     "params": [
-        [user_username],  # Имя пользователя, которому нужно изменить пароль
+        [user_username],
         {
             "userpassword": new_password
         }
@@ -98,5 +98,5 @@ def check():
     return 'ok'
 
         
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.run(debug=True)
