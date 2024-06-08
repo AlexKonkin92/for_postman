@@ -1,8 +1,8 @@
-asgiref
+# asgiref
 Flask
-sqlparse
-tzdata
-ipalib
-ipaclient
+# sqlparse
+# tzdata
+# ipalib
+# ipaclient
 gunicorn
 requests
