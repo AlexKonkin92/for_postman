@@ -4,8 +4,8 @@ services:
   python-script:
     build: .
     container_name: python_script_runner
-    user: 'root'
-    volumes:
-      - /etc/ipa/ca.crt:/etc/ipa/ca.crt
+    #user: 'root'
+    #volumes:
+    #  - /etc/ipa/ca.crt:/etc/ipa/ca.crt
     ports:
       - 8000:8000
