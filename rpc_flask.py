@@ -9,10 +9,11 @@ import logging
 
 app = Flask(__name__)
 
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
 #auth_url = 'https://freeipa-dev.ks.works/ipa/session/login_password'
 json_rpc_url = 'https://freeipa-dev.ks.works/ipa/json'
 my_post = 'ya.alexgr4@yandex.ru'
-session_cache = None
 
 def get_auth_session():
     session = requests.Session()
