@@ -14,14 +14,11 @@ my_post = 'ya.alexgr4@yandex.ru'
 session_cache = None
 
 def get_auth_session():
-    global session_cache
-    if session_cache is not None:
-        return session_cache
     session = requests.Session()
     session.headers.update({'referer': "https://freeipa-dev.ks.works/ipa/ui/"})
     data = {
         'user': 'admin',
-        'password': 'Secret123'
+        'password': 'new_password'
     }
     try:
         response = session.post(Config.AUTH_URL, headers=session.headers, data=data, verify=False)
@@ -66,7 +63,9 @@ def send_email(recipient, password):
 
 @app.route('/reset_email_password', methods=['POST'])   
 def reset_password():
+    #email = request.args.get('email')
     email = request.get_json().get('email')
+    print(email)
     user_username = valid_user(email)
     if user_username is None:
         return "User missing"
