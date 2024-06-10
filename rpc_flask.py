@@ -20,6 +20,7 @@ def get_auth_session():
         'user': 'admin',
         'password': 'Secret123'
     }
+    print(f"Config.AUTH_URL: {Config.AUTH_URL}")
     try:
         response = session.post(Config.AUTH_URL, headers=session.headers, data=data, verify=False)
         return session
