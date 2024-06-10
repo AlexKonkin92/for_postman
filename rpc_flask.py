@@ -48,6 +48,7 @@ def valid_user(email):
         response = session.post(json_rpc_url, json=user_find_payload, headers=session.headers, verify=False)
         response.raise_for_status()
         user = response.json()['result']['result']
+        logging.info(user[0]['uid'][0])
         if user:
             return user[0]['uid'][0]
     except RequestException as e:
