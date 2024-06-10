@@ -12,13 +12,13 @@ app = Flask(__name__)
 
 def get_auth_session():
     session = requests.Session()
-    #session.headers.update({'referer': Config.REFERER})
+    session.headers.update({'referer': Config.REFERER})
     data = {
         'user': Config.ADMIN_USER,
         'password': Config.ADMIN_PASS
     }
     try:
-        response = session.post(Config.AUTH_URL, data=data, verify=Config.VERIFY_SSL)
+        response = session.post(Config.AUTH_URL, headers=session.headers, data=data, verify=Config.VERIFY_SSL)
         return session
     except RequestException as e:
          raise Exception('Authentication failed') from e
@@ -42,7 +42,7 @@ def valid_user(email):
             "id": 0
         }
     try:
-        response = session.post(Config.JSON_RPC_URL, json=user_find_payload, verify=Config.VERIFY_SSL)
+        response = session.post(Config.JSON_RPC_URL, json=user_find_payload, headers=session.headers, verify=Config.VERIFY_SSL)
         response.raise_for_status()
         user = response.json()['result']['result']
         if user:
@@ -83,7 +83,7 @@ def reset_password():
     "id": 0
 }
     try:
-        response = session.post(Config.JSON_RPC_URL, json=user_mod_payload, verify=Config.VERIFY_SSL)
+        response = session.post(Config.JSON_RPC_URL, json=user_mod_payload, headers=session.headers, verify=Config.VERIFY_SSL)
         response.raise_for_status()
         send_email(email, new_password)
         return f"Password sent to the mail {email}"
