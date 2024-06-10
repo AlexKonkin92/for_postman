@@ -36,6 +36,8 @@ def generate_password():
 
 def valid_user(email):
     session = get_auth_session()
+    logging.info(session)
+    logging.info(email)
     user_find_payload = {
             "method": "user_find",
             "params": [
