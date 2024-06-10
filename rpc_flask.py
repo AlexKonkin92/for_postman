@@ -4,6 +4,7 @@ import smtplib
 from email.mime.text import MIMEText
 from requests.exceptions import RequestException
 from config import Config
+import logging
 
 
 app = Flask(__name__)
@@ -20,8 +21,10 @@ def get_auth_session():
         'user': 'admin',
         'password': 'Secret123'
     }
-    print(f"Config.AUTH_URL: {Config.AUTH_URL}")
+    
+    
     try:
+        logging.info(f"Config.AUTH_URL: {Config.AUTH_URL}")
         response = session.post(Config.AUTH_URL, headers=session.headers, data=data, verify=False)
         return session
     except RequestException as e:
