@@ -8,10 +8,12 @@ class Config():
     MY_POST = os.environ.get('MY_POST')
     REFERER = os.environ.get('REFERER')
     SMTP_PROVIDER = os.environ.get('SMTP_PROVIDER')
-    SESSION_CACHE = os.environ.get('SESSION_CACHE')
+    SMTP_PORT = os.environ.get('SMTP_PORT')
+    SMTP_PASSWORD = os.environ.get('SMTP_PASSWORD')
     ADMIN_USER = os.environ.get('ADMIN_USER')
     ADMIN_PASS = os.environ.get('ADMIN_PASS')
-    VERIFY_SSL = os.environ.get('VERIFY_SSL')
+    VERIFY_SSL = os.environ.get('VERIFY_SSL') == 'True'
+
 
 
 
