@@ -4,6 +4,8 @@ WORKDIR /usr/src/app
 
 COPY rpc_flask.py ./
 COPY requirements.txt ./
+COPY config.py ./
+COPY .env ./
 
 RUN pip install -r requirements.txt
 
