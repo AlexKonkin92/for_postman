@@ -71,8 +71,10 @@ def validate_user(email: str, session: requests.Session) -> str:
     return username
 
 
-def generate_password() -> str:
-    return "new_password"
+def generate_password(length=12) -> str:
+    alphabet = string.ascii_letters + string.digits
+    password = ''.join(secrets.choice(alphabet) for i in range(length))
+    return password
 
 
 def reset_password(username: str, new_password: str, session: requests.Session) -> str:
