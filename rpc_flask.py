@@ -20,7 +20,7 @@ def get_auth_session():
     session.headers.update({'referer': "https://freeipa-dev.ks.works/ipa/ui/"})
     data = {
         'user': 'admin',
-        'password': 'Secret123'
+        'password': 'new_password'
     }
     
     
