@@ -1,8 +1,9 @@
 import os
+from dotenv import load_dotenv
 
 class Config():
+    load_dotenv()
     AUTH_URL = os.environ.get('AUTH_URL')
-
     JSON_RPC_URL = os.environ.get('JSON_RPC_URL')
     MY_POST = os.environ.get('MY_POST')
     REFERER = os.environ.get('REFERER')
