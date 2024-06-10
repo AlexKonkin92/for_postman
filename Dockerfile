@@ -7,6 +7,8 @@ COPY requirements.txt ./
 COPY config.py ./
 #COPY .env ./
 
+RUN pip install python-dotenv
+
 RUN pip install -r requirements.txt
 
 ENV ENV_FILE .env
