@@ -4,14 +4,10 @@ import smtplib
 from email.mime.text import MIMEText
 from requests.exceptions import RequestException
 from config import Config
-import logging
 
 
 app = Flask(__name__)
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
-#auth_url = 'https://freeipa-dev.ks.works/ipa/session/login_password'
 json_rpc_url = 'https://freeipa-dev.ks.works/ipa/json'
 my_post = 'ya.alexgr4@yandex.ru'
 
@@ -22,10 +18,7 @@ def get_auth_session():
         'user': 'admin',
         'password': 'new_password'
     }
-    
-    
     try:
-        logging.info(f"Config.AUTH_URL: {Config.AUTH_URL}")
         response = session.post(Config.AUTH_URL, headers=session.headers, data=data, verify=False)
         return session
     except RequestException as e:
@@ -36,8 +29,6 @@ def generate_password():
 
 def valid_user(email):
     session = get_auth_session()
-    logging.info(session)
-    logging.info(email)
     user_find_payload = {
             "method": "user_find",
             "params": [
@@ -47,13 +38,9 @@ def valid_user(email):
             "id": 0
         }
     try:
-        logging.info(json_rpc_url)
-        logging.info(user_find_payload)
         response = session.post(json_rpc_url, json=user_find_payload, headers=session.headers, verify=False)
-        logging.info(response)
         response.raise_for_status()
         user = response.json()['result']['result']
-        logging.info(user[0]['uid'][0])
         if user:
             return user[0]['uid'][0]
     except RequestException as e:
