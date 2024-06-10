@@ -63,9 +63,9 @@ def send_email(recipient, password):
         server.login(sender, 'xsegyibpinputkgo')
         server.sendmail(sender, recipient, msg.as_string())
 
-@app.route('/reset_email_password', methods=['GET'])   
+@app.route('/reset_email_password', methods=['POST'])   
 def reset_password():
-    email = request.args.get('email')
+    email = request.get_json().get('email')
     user_username = valid_user(email)
     if user_username is None:
         return "User missing"
