@@ -47,6 +47,8 @@ def valid_user(email):
             "id": 0
         }
     try:
+        logging.info(json_rpc_url)
+        logging.info(user_find_payload)
         response = session.post(json_rpc_url, json=user_find_payload, headers=session.headers, verify=False)
         logging.info(response)
         response.raise_for_status()
