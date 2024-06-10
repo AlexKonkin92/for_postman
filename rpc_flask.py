@@ -48,6 +48,7 @@ def valid_user(email):
         }
     try:
         response = session.post(json_rpc_url, json=user_find_payload, headers=session.headers, verify=False)
+        logging.info(response)
         response.raise_for_status()
         user = response.json()['result']['result']
         logging.info(user[0]['uid'][0])
