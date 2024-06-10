@@ -14,9 +14,6 @@ my_post = 'ya.alexgr4@yandex.ru'
 session_cache = None
 
 def get_auth_session():
-    global session_cache
-    if session_cache is not None:
-        return session_cache
     session = requests.Session()
     session.headers.update({'referer': "https://freeipa-dev.ks.works/ipa/ui/"})
     data = {
