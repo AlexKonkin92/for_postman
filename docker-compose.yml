@@ -4,5 +4,6 @@ services:
   python-script:
     build: .
     container_name: python_script_runner
+    env_file: .env
     ports:
       - 8000:8000
