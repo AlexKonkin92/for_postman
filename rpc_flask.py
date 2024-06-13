@@ -67,7 +67,7 @@ def validate_user(email: str, session: requests.Session) -> str:
     response.raise_for_status()
     user = response.json()['result']['result']
     if not user or not (username := user[0]['uid'][0]):
-        raise UserValidationError("Missing user or user uid")
+        raise UserValidationError(f"User with email {email} not found")
     return username
 
 
