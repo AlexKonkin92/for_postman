@@ -4,8 +4,6 @@ services:
   python-script:
     build: .
     container_name: freeipa_service
-    volumes:
-      - /etc/ipa/ca.crt:/etc/ipa/ca.crt
     env_file: .env
     ports:
       - 8000:8000
