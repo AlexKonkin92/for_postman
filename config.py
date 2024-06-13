@@ -12,7 +12,9 @@ class Config():
     SMTP_PASSWORD = os.environ.get('SMTP_PASSWORD')
     ADMIN_USER = os.environ.get('ADMIN_USER')
     ADMIN_PASS = os.environ.get('ADMIN_PASS')
-    VERIFY_SSL = os.environ.get('VERIFY_SSL') == 'True'
+    VERIFY_SSL = os.environ.get('VERIFY_SSL').lower() in {"true", "1"}
+
+config = Config()
 
 
 
