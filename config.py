@@ -7,7 +7,7 @@ class Config():
     AUTH_URL = f'https://{DOMAIN}/ipa/session/login_password'
     JSON_RPC_URL = f'https://{DOMAIN}/ipa/json'
     SENDER_POST = os.environ.get('SENDER_POST')
-    REFERER = f'https://{DOMAIN}/ipa/ui/'
+    REFERER_URL = f'https://{DOMAIN}/ipa/ui/'
     SMTP_PROVIDER = os.environ.get('SMTP_PROVIDER')
     SMTP_PORT = os.environ.get('SMTP_PORT')
     SMTP_PASSWORD = os.environ.get('SMTP_PASSWORD')

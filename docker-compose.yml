@@ -6,4 +6,4 @@ services:
     container_name: freeipa_service
     env_file: .env
     ports:
-      - 8000:8000
+      - "${APP_PORT}:${APP_PORT}"

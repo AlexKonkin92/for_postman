@@ -44,7 +44,7 @@ def check():
 
 def get_auth_session():
     session = requests.Session()
-    session.headers.update({'referer': Config.REFERER})
+    session.headers.update({'referer': Config.REFERER_URL})
     data = {
         'user': Config.ADMIN_USER,
         'password': Config.ADMIN_PASS
