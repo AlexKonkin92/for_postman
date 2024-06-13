@@ -49,7 +49,7 @@ def get_auth_session():
         'user': Config.ADMIN_USER,
         'password': Config.ADMIN_PASS
     }
-    response = session.post(Config.AUTH_URL, data=data, headers=session.headers, verify=Config.VERIFY_SSL)
+    response = session.post(Config.AUTH_URL, data=data,  verify=Config.VERIFY_SSL)
     response.raise_for_status()
     return session
 
@@ -63,7 +63,7 @@ def validate_user(email: str, session: requests.Session) -> str:
         ],
         "id": 0
     }
-    response = session.post(Config.JSON_RPC_URL, json=user_find_payload, headers=session.headers, verify=Config.VERIFY_SSL)
+    response = session.post(Config.JSON_RPC_URL, json=user_find_payload,  verify=Config.VERIFY_SSL)
     response.raise_for_status()
     user = response.json()['result']['result']
     if not user or not (username := user[0]['uid'][0]):
@@ -88,7 +88,7 @@ def reset_password(username: str, new_password: str, session: requests.Session) 
         ],
         "id": 0
     }
-    response = session.post(Config.JSON_RPC_URL, json=user_mod_payload, headers=session.headers, verify=Config.VERIFY_SSL)
+    response = session.post(Config.JSON_RPC_URL, json=user_mod_payload,  verify=Config.VERIFY_SSL)
     response.raise_for_status()
 
 
