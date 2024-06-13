@@ -3,7 +3,9 @@ version: '3.9'
 services:
   python-script:
     build: .
-    container_name: python_script_runner
+    container_name: freeipa_service
+    volumes:
+      - /etc/ipa/ca.crt:/etc/ipa/ca.crt
     env_file: .env
     ports:
       - 8000:8000
