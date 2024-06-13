@@ -33,6 +33,8 @@ def reset_password_view():
         return jsonify({'error': f"User validation error: {str(e)}"}), 400
     except SMTPException as e:
         return jsonify({'error': f"SMTP error during email sending: {str(e)}"}), 400
+    except KeyError as e:
+        return jsonify({'error': f"Missing key in response: {str(e)}"}), 400
     
     return jsonify({'response': f"Password sent to the mail {email}"}), 200
 
@@ -65,13 +67,10 @@ def validate_user(email: str, session: requests.Session) -> str:
     }
     response = session.post(Config.JSON_RPC_URL, json=user_find_payload,  verify=Config.VERIFY_SSL)
     response.raise_for_status()
-    try:
-        user = response.json()['result']['result']
-        if not user or not (username := user[0]['uid'][0]):
-            raise UserValidationError(f"User with email {email} not found")
-    except KeyError as e:
-        raise UserValidationError(f"Missing key in response: {e}")
-    return username
+    user = response.json()['result']['result']
+    if not user:
+        raise UserValidationError(f"User with email {email} not found")
+    return user[0]['uid'][0]
 
 
 def generate_password(length=12) -> str:
