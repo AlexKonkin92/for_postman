@@ -2,11 +2,13 @@ FROM python:3.11
 
 WORKDIR /usr/src/app
 
-COPY rpc_flask.py ./
-COPY requirements.txt ./
-COPY config.py ./
+# COPY rpc_flask.py ./
+# COPY requirements.txt ./
+# COPY config.py ./
 
-RUN pip install python-dotenv
+COPY . .
+
+#RUN pip install python-dotenv
 
 RUN pip install -r requirements.txt
 

@@ -93,7 +93,7 @@ def reset_password(username: str, new_password: str, session: requests.Session) 
 
 
 def send_email(recipient: str, password: str) -> None:
-    sender = Config.MY_POST
+    sender = Config.SENDER_POST
     message = f"Временный пароль: {password}"
     msg = MIMEText(message)
 
