@@ -33,11 +33,10 @@ def reset_password_view():
         return jsonify({'error': f"User validation error: {str(e)}"}), 400
     except SMTPException as e:
         return jsonify({'error': f"SMTP error during email sending: {str(e)}"}), 400
-    except KeyError as e:
-        return jsonify({'error': f"Missing key in response: {str(e)}"}), 400
+    except Exception as e:
+        return jsonify({'error': f"Unknown error: {str(e)}"}), 400
     
     return jsonify({'response': f"Password sent to the mail {email}"}), 200
-
 
 @app.route('/healthcheck')   
 def check():
